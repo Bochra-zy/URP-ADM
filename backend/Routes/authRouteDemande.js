@@ -141,7 +141,6 @@ transporter.verify((error, success) => {
 
 
 // POST /api/demandes - Create a new demand and send email to the offer's responsable
-// POST /api/demandes - Create a new demand and send email to the offer's responsable
 router.post('/', candidatMiddleware, async (req, res) => {
   try {
     const { offreId } = req.body;

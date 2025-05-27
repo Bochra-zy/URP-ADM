@@ -10,7 +10,9 @@ dotenv.config();
 const app = express();
 
 // Middlewares
-app.use(cors()); // Permet les requêtes cross-origin (nécessaire pour votre frontend React)
+app.use(cors({
+  origin: "http://portalite-frontend.s3-website-région.amazonaws.com"
+})); // Permet les requêtes cross-origin (nécessaire pour votre frontend React)
 app.use(express.json()); // Parse les requêtes JSON
 app.use(express.urlencoded({ extended: true })); // Parse les requêtes URL-encoded
 

@@ -31,7 +31,7 @@ const SignInResponsable = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/responsable/login", {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/responsable/login`, {
         email,
         password,
       });
@@ -58,7 +58,7 @@ const SignInResponsable = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/responsable/forgot-password", {
+      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/responsable/forgot-password`, {
         email: resetEmail,
       });
       setResetMessage(res.data.message || "Un e-mail de réinitialisation a été envoyé !");

@@ -31,7 +31,7 @@ const SignInResponsable = () => {
     setError("");
 
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/responsable/login`, {
+      const res = await axios.post("http://54.152.22.53/api/auth/responsable/login", {
         email,
         password,
       });

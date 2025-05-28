@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+const baseURL = process.env.REACT_APP_API_URL;
 
 const CandidatsListe = () => {
   const [candidates, setCandidates] = useState([]);
@@ -24,7 +25,7 @@ const CandidatsListe = () => {
         return;
       }
 
-      const res = await axios.get('http://localhost:5000/api/auth/candidat/candidatesCV', {
+      const res = await axios.get(`${baseURL}/auth/candidat/candidatesCV`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setCandidates(res.data);
@@ -78,7 +79,7 @@ const CandidatsListe = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:5000/api/cv/download/${nomFichier}`, {
+      const response = await axios.get(`${baseURL}/cv/download/${nomFichier}`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: 'blob',
       });
@@ -121,7 +122,7 @@ const CandidatsListe = () => {
 
     console.log('Envoi de la requête pour analyser le CV:', nomFichier);
     const aiResponse = await axios.post(
-      'http://localhost:5000/api/cv/analyze',
+      `${baseURL}/cv/analyze`,
       { nomFichier },
       {
         headers: {

@@ -8,6 +8,7 @@ function Responsables() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+const baseURL = process.env.REACT_APP_API_URL;
 
   const fetchResponsables = async () => {
     try {
@@ -17,7 +18,7 @@ function Responsables() {
         navigate("/signin");
         return;
       }
-      const response = await axios.get("http://localhost:5000/api/auth/responsables", {
+      const response = await axios.get(`${baseURL}/auth/responsables`, {
       headers: { Authorization: `Bearer ${token}` },
       });
       console.log("Responsables récupérés:", response.data); 
@@ -42,7 +43,7 @@ function Responsables() {
           navigate("/signin");
           return;
         }
-        await axios.delete(`http://localhost:5000/api/auth/responsables/${id}`,{
+        await axios.delete(`${baseURL}/auth/responsables/${id}`,{
           headers: { Authorization: `Bearer ${token}` },
         });
         await fetchResponsables();

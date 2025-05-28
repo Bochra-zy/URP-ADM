@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from 'axios';
+const baseURL = process.env.REACT_APP_API_URL;
 
 function OffresResponsable() {
     const [offres, setOffres] = useState([]);
@@ -33,7 +34,7 @@ function OffresResponsable() {
             return;
         }
 
-        fetch("http://localhost:5000/api/offres/offRes", {
+        fetch(`${baseURL}/offres/offRes`, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "application/json",
@@ -61,7 +62,7 @@ function OffresResponsable() {
    const fetchDemandes = async (offreId) => {
   const token = localStorage.getItem("token");
   try {
-    const response = await fetch(`http://localhost:5000/api/demandes/offre/${offreId}`, {
+    const response = await fetch(`${baseURL}/demandes/offre/${offreId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -87,7 +88,7 @@ function OffresResponsable() {
       data.map(async (demande) => {
         try {
           const decisionResponse = await axios.get(
-            `http://localhost:5000/api/interview/check-rejection/${demande.candidat._id}/${offreId}`,
+            `${baseURL}/interview/check-rejection/${demande.candidat._id}/${offreId}`,
             { headers: { Authorization: `Bearer ${token}` } }
           );
           return { demandeId: demande._id, decision: decisionResponse.data.decision };
@@ -120,7 +121,7 @@ function OffresResponsable() {
                 return;
             }
 
-            const response = await axios.get(`http://localhost:5000/api/cv/download/${nomFichier}`, {
+            const response = await axios.get(`${baseURL}/cv/download/${nomFichier}`, {
                 headers: { Authorization: `Bearer ${token}` },
                 responseType: 'blob',
             });
@@ -154,7 +155,7 @@ function OffresResponsable() {
             }
 
             const aiResponse = await axios.post(
-                'http://localhost:5000/api/cv/analyze',
+                `${baseURL}/cv/analyze`,
                 { nomFichier },
                 {
                     headers: {
@@ -192,7 +193,7 @@ function OffresResponsable() {
             console.log(`Envoi de la requête PATCH pour demande ${demandeId} avec statut ${newStatut}`);
 
             const response = await axios.patch(
-                `http://localhost:5000/api/demandes/${demandeId}/statut`,
+                `${baseURL}/demandes/${demandeId}/statut`,
                 { statut: newStatut },
                 {
                     headers: {
@@ -310,7 +311,7 @@ function OffresResponsable() {
         }
 
         try {
-            const response = await fetch("http://localhost:5000/api/offres/ajoutoffre", {
+            const response = await fetch(`${baseURL}/offres/ajoutoffre`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -344,7 +345,7 @@ function OffresResponsable() {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/api/offres/${selectedOffre._id}`, {
+            const response = await fetch(`${baseURL}/offres/${selectedOffre._id}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -375,7 +376,7 @@ function OffresResponsable() {
         const nextStatut = statuts[nextStatutIndex];
 
         try {
-            const response = await fetch(`http://localhost:5000/api/offres/${offreId}/statut`, {
+            const response = await fetch(`${baseURL}/offres/${offreId}/statut`, {
                 method: "PATCH",
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -405,7 +406,7 @@ function OffresResponsable() {
 
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`http://localhost:5000/api/offres/${offreId}`, {
+            const response = await fetch(`${baseURL}/offres/${offreId}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,

@@ -8,6 +8,7 @@ function NavBar() {
   const [user, setUser] = useState({ nom: "", prenom: "" });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+const baseURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -17,7 +18,7 @@ function NavBar() {
           throw new Error("No token found");
         }
 
-        const response = await axios.get("http://localhost:5000/api/auth/candidat/profil", {
+        const response = await axios.get(`${baseURL}/auth/candidat/profil`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

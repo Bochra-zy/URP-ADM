@@ -19,6 +19,7 @@ function CandidateInterview() {
   const [showDetailModal, setShowDetailModal] = useState(false);
   const [selectedInterview, setSelectedInterview] = useState(null);
   const [error, setError] = useState(null);
+const baseURL = process.env.REACT_APP_API_URL;
 
   // Fetch interviews for the logged-in candidate
   const fetchInterviews = async () => {
@@ -29,7 +30,7 @@ function CandidateInterview() {
     }
 
     try {
-      const response = await axios.get('http://localhost:5000/api/interview/candidat', {
+      const response = await axios.get(`${baseURL}/interview/candidat`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

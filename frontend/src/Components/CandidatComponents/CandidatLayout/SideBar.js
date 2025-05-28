@@ -9,6 +9,7 @@ function SideBar() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+const baseURL = process.env.REACT_APP_API_URL;
 
   // Fetch user profile on component mount
   useEffect(() => {
@@ -19,7 +20,7 @@ function SideBar() {
           throw new Error("No token found");
         }
 
-        const response = await axios.get("http://localhost:5000/api/auth/candidat/profil", {
+        const response = await axios.get(`${baseURL}/auth/candidat/profil`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

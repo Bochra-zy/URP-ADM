@@ -18,6 +18,7 @@ function DetailsResponsable() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { id } = useParams();
+const baseURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -32,7 +33,7 @@ function DetailsResponsable() {
       try {
         setLoading(true);
         console.log("ID du responsable:", id); // Log pour déboguer
-        const res = await axios.get(`http://localhost:5000/api/auth/responsables/${id}`, {
+        const res = await axios.get(`${baseURL}/auth/responsables/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setResponsable(res.data);
@@ -93,7 +94,7 @@ function DetailsResponsable() {
         return;
       }
       const res = await axios.put(
-        `http://localhost:5000/api/auth/responsables/${id}`,
+        `${baseURL}/auth/responsables/${id}`,
         updatedData,
         {
           headers: { Authorization: `Bearer ${token}` },

@@ -13,6 +13,7 @@ function AjouterCandidat() {
   });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+const baseURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -38,7 +39,7 @@ function AjouterCandidat() {
         return;
       }
       await axios.post(
-        "http://localhost:5000/api/auth/new-candidats",
+        `${baseURL}/auth/new-candidats`,
         newCandidate,
         {
           headers: {

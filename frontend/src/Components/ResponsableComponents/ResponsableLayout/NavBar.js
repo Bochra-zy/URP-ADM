@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useNavigate, NavLink } from "react-router-dom";
 import axios from "axios";
+const baseURL = process.env.REACT_APP_API_URL;
 
 function NavBar() {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ function NavBar() {
           throw new Error("No token found");
         }
 
-        const response = await axios.get("http://localhost:5000/api/auth/responsable/profil", {
+        const response = await axios.get(`${baseURL}/auth/responsable/profil`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

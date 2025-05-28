@@ -17,6 +17,7 @@ function DetailCandidat() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { id } = useParams();
+const baseURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -30,7 +31,7 @@ function DetailCandidat() {
       try {
         setLoading(true);
         console.log("ID du candidat:", id);
-        const res = await axios.get(`http://localhost:5000/api/auth/candidats/${id}`, {
+        const res = await axios.get(`${baseURL}/auth/candidats/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCandidate(res.data);
@@ -114,7 +115,7 @@ function DetailCandidat() {
         return;
       }
       const res = await axios.put(
-        `http://localhost:5000/api/auth/candidats/${id}`,
+        `${baseURL}/auth/candidats/${id}`,
         updatedData,
         {
           headers: { Authorization: `Bearer ${token}` },

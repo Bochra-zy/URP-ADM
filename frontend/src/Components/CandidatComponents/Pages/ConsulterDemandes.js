@@ -9,6 +9,7 @@ function ConsulterDemandes() {
   const [selectedDemande, setSelectedDemande] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+const baseURL = process.env.REACT_APP_API_URL;
 
   const fetchDemandes = async () => {
     try {
@@ -19,7 +20,7 @@ function ConsulterDemandes() {
         return;
       }
 
-      const response = await axios.get('http://localhost:5000/api/demandes/candidat', {
+      const response = await axios.get(`${baseURL}/demandes/candidat`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -55,7 +56,7 @@ function ConsulterDemandes() {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`http://localhost:5000/api/demandes/${demandeId}`, {
+      await axios.delete(`${baseURL}/demandes/${demandeId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 

@@ -16,6 +16,7 @@ const SignInCandidat = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+const baseURL = process.env.REACT_APP_API_URL;
 
   // Extraire le token de l'URL
   useEffect(() => {
@@ -32,7 +33,7 @@ const SignInCandidat = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/candidat/login", {
+      const res = await axios.post(`${baseURL}/auth/candidat/login`, {
         email,
         password,
       });
@@ -60,7 +61,7 @@ const SignInCandidat = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/candidat/forgot-password", {
+      const res = await axios.post(`${baseURL}/auth/candidat/forgot-password`, {
         email: resetEmail,
       });
       setResetMessage(res.data.message || "Un e-mail de réinitialisation a été envoyé !");
@@ -84,7 +85,7 @@ const SignInCandidat = () => {
     const token = params.get("token");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/candidat/reset-password", {
+      const res = await axios.post(`${baseURL}/auth/candidat/reset-password`, {
         token,
         password: newPassword,
       });

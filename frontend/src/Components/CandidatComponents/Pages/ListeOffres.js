@@ -8,6 +8,7 @@ function ListeOffres() {
   const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+const baseURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -24,10 +25,10 @@ function ListeOffres() {
 
         // Récupérer les offres et les demandes en parallèle
         const [offresResponse, demandeResponse] = await Promise.all([
-          axios.get('http://localhost:5000/api/offres/candidat', {
+          axios.get(`${baseURL}/offres/candidat`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://localhost:5000/api/demandes/candidat', {
+          axios.get(`${baseURL}/demandes/candidat`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
@@ -100,7 +101,7 @@ function ListeOffres() {
     try {
       console.log(`Soumission de la candidature pour l'offre ${offreId}`);
       const response = await axios.post(
-        'http://localhost:5000/api/demandes',
+        `${baseURL}/demandes`,
         { offreId },
         {
           headers: { Authorization: `Bearer ${token}` },

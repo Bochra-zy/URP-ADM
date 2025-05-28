@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+const baseURL = process.env.REACT_APP_API_URL;
 
 function SideBar() {
   const [isSidebarExpanded, setSidebarExpanded] = useState(true);
@@ -19,7 +20,7 @@ function SideBar() {
           throw new Error("No token found");
         }
 
-        const response = await axios.get("http://localhost:5000/api/auth/responsable/profil", {
+        const response = await axios.get(`${baseURL}/auth/responsable/profil`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -3,6 +3,7 @@ import { useNavigate , useLocation } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import styles
+const baseURL = process.env.REACT_APP_API_URL;
 
 const SignInResponsable = () => {
   const [email, setEmail] = useState("");
@@ -31,7 +32,7 @@ const SignInResponsable = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://54.152.22.53/api/auth/responsable/login", {
+      const res = await axios.post(`${baseURL}/auth/responsable/login`, {
         email,
         password,
       });
@@ -58,7 +59,7 @@ const SignInResponsable = () => {
     setError("");
 
     try {
-      const res = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/responsable/forgot-password`, {
+      const res = await axios.post(`${baseURL}/api/auth/responsable/forgot-password`, {
         email: resetEmail,
       });
       setResetMessage(res.data.message || "Un e-mail de réinitialisation a été envoyé !");
@@ -82,7 +83,7 @@ const SignInResponsable = () => {
     const token = params.get("token");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/responsable/reset-password", {
+      const res = await axios.post(`${baseURL}/auth/responsable/reset-password`, {
         token,
         password: newPassword,
       });

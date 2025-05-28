@@ -33,6 +33,7 @@ function DashboardAdmin() {
     interviewsAccepted: 0,
     interviewsNotAccepted: 0,
   });
+const baseURL = process.env.REACT_APP_API_URL;
 
   // État pour les entretiens du calendrier
   const [interviews, setInterviews] = useState([]);
@@ -62,13 +63,13 @@ function DashboardAdmin() {
           interviewsNotAcceptedRes,
           interviewsRes,
         ] = await Promise.all([
-          axios.get("http://localhost:5000/api/stats/responsables", config),
-          axios.get("http://localhost:5000/api/stats/offres", config),
-          axios.get("http://localhost:5000/api/stats/candidats", config),
-          axios.get("http://localhost:5000/api/stats/demandes-acceptees", config),
-          axios.get("http://localhost:5000/api/stats/interviews-accepted", config),
-          axios.get("http://localhost:5000/api/stats/interviews-not-accepted", config),
-          axios.get("http://localhost:5000/api/stats/interviews", config),
+          axios.get(`${baseURL}/stats/responsables`, config),
+          axios.get(`${baseURL}/stats/offres`, config),
+          axios.get(`${baseURL}/stats/candidats`, config),
+          axios.get(`${baseURL}/stats/demandes-acceptees`, config),
+          axios.get(`${baseURL}/stats/interviews-accepted`, config),
+          axios.get(`${baseURL}/stats/interviews-not-accepted`, config),
+          axios.get(`${baseURL}/stats/interviews`, config),
         ]);
 
         setStats({

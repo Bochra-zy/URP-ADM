@@ -5,6 +5,7 @@ import 'react-calendar/dist/Calendar.css';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import axios from 'axios';
+const baseURL = process.env.REACT_APP_API_URL;
 
 function StatisticsCharts({ stats }) {
   useEffect(() => {
@@ -126,7 +127,7 @@ function DashboardResponsable() {
         setLoading(true);
 
         // Récupérer les statistiques
-        const statsResponse = await fetch("http://localhost:5000/api/interview/statistiques/responsable", {
+        const statsResponse = await fetch(`${baseURL}/interview/statistiques/responsable`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -140,7 +141,7 @@ function DashboardResponsable() {
         setStats(statsData);
 
         // Récupérer les interviews planifiées
-        const interviewsResponse = await axios.get('http://localhost:5000/api/interview', {
+        const interviewsResponse = await axios.get(`${baseURL}/interview`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const formattedInterviews = interviewsResponse.data

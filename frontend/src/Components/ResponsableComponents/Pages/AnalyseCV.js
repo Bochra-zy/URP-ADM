@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
      import axios from 'axios';
      import { useNavigate, useParams } from 'react-router-dom';
+const baseURL = process.env.REACT_APP_API_URL;
 
      const AnalyseCV = () => {
        const [analysis, setAnalysis] = useState({});
@@ -20,7 +21,7 @@ import React, { useState, useEffect } from 'react';
          const fetchAnalysis = async () => {
            try {
              const response = await axios.post(
-               'http://localhost:5000/api/cv/analyze',
+               `${baseURL}/api/cv/analyze`,
                { nomFichier: filename },
                {
                  headers: { Authorization: `Bearer ${token}` },

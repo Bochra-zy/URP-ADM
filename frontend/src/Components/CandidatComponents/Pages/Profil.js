@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function ProfilCandiat() {
+  const baseURL = process.env.REACT_APP_API_URL;
+
   const [candidat, setCandidat] = useState(null);
   const [formData, setFormData] = useState({
     nom: "",
@@ -23,7 +25,7 @@ function ProfilCandiat() {
 
     const fetchCandidatProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/candidat/profil", {
+        const res = await axios.get(`${baseURL}/auth/candidat/profil`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCandidat(res.data);
@@ -66,7 +68,7 @@ function ProfilCandiat() {
 
     try {
       const res = await axios.put(
-        "http://localhost:5000/api/auth/candidat/profil",
+        `${baseURL}/auth/candidat/profil`,
         updatedData,
         {
           headers: { Authorization: `Bearer ${token}` },

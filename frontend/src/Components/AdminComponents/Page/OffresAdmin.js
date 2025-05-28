@@ -6,6 +6,7 @@ function OffresAdmin() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+const baseURL = process.env.REACT_APP_API_URL;
 
     // Fetch all offers
     useEffect(() => {
@@ -19,7 +20,7 @@ function OffresAdmin() {
             }
 
             try {
-                const response = await fetch("http://localhost:5000/api/offres", {
+                const response = await fetch(`${baseURL}/offres`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
@@ -53,7 +54,7 @@ function OffresAdmin() {
 
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`http://localhost:5000/api/offres/${offreId}`, {
+            const response = await fetch(`${baseURL}/offres/${offreId}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,

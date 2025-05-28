@@ -11,6 +11,7 @@ const SignUpCandidat = () => {
     const [experience, setExperience] = useState("");
     const [error, setError] = useState("");
     const navigate = useNavigate();
+const baseURL = process.env.REACT_APP_API_URL;
 
     const handleSignUp = async (e) => {
         e.preventDefault();
@@ -20,7 +21,7 @@ const SignUpCandidat = () => {
             return;
         }
         try {
-            const res = await axios.post("http://localhost:5000/api/auth/candidat/register", {
+            const res = await axios.post(`${baseURL}/auth/candidat/register`, {
                 nom,
                 prenom,
                 specialite,

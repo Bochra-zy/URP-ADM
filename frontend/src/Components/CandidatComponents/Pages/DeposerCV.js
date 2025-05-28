@@ -9,6 +9,7 @@ function DeposerCV() {
   const [existingCV, setExistingCV] = useState(null);
   const [analyses, setAnalyses] = useState([]);
   const navigate = useNavigate();
+const baseURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -20,7 +21,7 @@ function DeposerCV() {
 
     const fetchExistingCV = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/cv/existing', {
+        const response = await axios.get(`${baseURL}/cv/existing`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -34,7 +35,7 @@ function DeposerCV() {
 
     const fetchAnalyses = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/cv/analyses', {
+        const response = await axios.get(`${baseURL}/cv/analyses`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -79,7 +80,7 @@ function DeposerCV() {
     formData.append('cv', file);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/cv/upload', formData, {
+      const response = await axios.post(`${baseURL}/cv/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`,
@@ -88,12 +89,12 @@ function DeposerCV() {
       setMessage(existingCV ? 'CV remplacé avec succès' : 'CV déposé avec succès');
       setError('');
       setFile(null);
-      const refreshCV = await axios.get('http://localhost:5000/api/cv/existing', {
+      const refreshCV = await axios.get(`${baseURL}/cv/existing`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setExistingCV(refreshCV.data.cv);
       // Rafraîchir les analyses après un nouvel upload
-      const refreshAnalyses = await axios.get('http://localhost:5000/api/cv/analyses', {
+      const refreshAnalyses = await axios.get(`${baseURL}/cv/analyses`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setAnalyses(refreshAnalyses.data);
@@ -119,7 +120,7 @@ function DeposerCV() {
     }
 
     try {
-      const response = await axios.get(`http://localhost:5000/api/cv/download/${filename}`, {
+      const response = await axios.get(`${baseURL}/cv/download/${filename}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -159,7 +160,7 @@ function DeposerCV() {
     }
 
     try {
-      await axios.delete('http://localhost:5000/api/cv/delete', {
+      await axios.delete(`${baseURL}/cv/delete`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

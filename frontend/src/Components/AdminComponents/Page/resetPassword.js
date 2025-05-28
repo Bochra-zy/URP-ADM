@@ -8,11 +8,12 @@ const ResetPassword = () => {
   const [error, setError] = useState("");
   const { token } = useParams(); // Récupérer le token depuis l'URL
   const navigate = useNavigate();
+const baseURL = process.env.REACT_APP_API_URL;
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/reset-password", {
+      const res = await axios.post(`${baseURL}/auth/reset-password`, {
         token,
         password,
       });

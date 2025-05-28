@@ -10,6 +10,7 @@ function DashboardCandidat() {
   const [interviews, setInterviews] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+const baseURL = process.env.REACT_APP_API_URL;
 
   // Couleur et icône selon le statut de la demande
   const getStatusStyle = (statut) => {
@@ -74,14 +75,14 @@ function DashboardCandidat() {
         setLoading(true);
 
         // Récupérer les demandes du candidat
-        const demandesResponse = await axios.get('http://localhost:5000/api/demandes/candidat', {
+        const demandesResponse = await axios.get(`${baseURL}/demandes/candidat`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log('Demandes response:', demandesResponse.data);
         setDemandes(demandesResponse.data || []);
 
         // Récupérer les interviews du candidat
-        const interviewsResponse = await axios.get('http://localhost:5000/api/interview/candidat', {
+        const interviewsResponse = await axios.get(`${baseURL}/interview/candidat`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log('Interviews response:', interviewsResponse.data);

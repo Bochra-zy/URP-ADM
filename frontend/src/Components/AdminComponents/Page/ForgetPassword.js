@@ -7,6 +7,7 @@ const ForgotPassword = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+const baseURL = process.env.REACT_APP_API_URL;
 
   const handleForgotPassword = async (e) => {
     e.preventDefault();
@@ -14,7 +15,7 @@ const ForgotPassword = () => {
     setError("");
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/forgot-password", {
+      const res = await axios.post(`${baseURL}/auth/forgot-password`, {
         email,
       });
       setMessage(res.data.message); 

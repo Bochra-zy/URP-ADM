@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { format } from 'date-fns';
+const baseURL = process.env.REACT_APP_API_URL;
 
 const MesCandidat = () => {
   const [candidates, setCandidates] = useState([]);
@@ -36,8 +37,8 @@ const MesCandidat = () => {
         }
 
         // Fetch candidates
-        console.log('Appel API vers: http://localhost:5000/api/demandes/responsable');
-        const candidatesRes = await axios.get('http://localhost:5000/api/demandes/responsable', {
+        console.log('Appel API vers: /api/demandes/responsable');
+        const candidatesRes = await axios.get(`${baseURL}/demandes/responsable`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log('Réponse API candidats:', candidatesRes.data);
@@ -49,8 +50,8 @@ const MesCandidat = () => {
         setCandidates(candidatesRes.data);
 
         // Fetch offers
-        console.log('Appel API vers: http://localhost:5000/api/offres/offRes');
-        const offresRes = await axios.get('http://localhost:5000/api/offres/offRes', {
+        console.log('Appel API vers: /api/offres/offRes');
+        const offresRes = await axios.get(`${baseURL}/offres/offRes`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log('Réponse API offres:', offresRes.data);
@@ -153,7 +154,7 @@ const MesCandidat = () => {
       }
 
       const response = await axios.post(
-        'http://localhost:5000/api/interview',
+        `${baseURL}/interview`,
         {
           candidatId: formData.candidatId,
           offreId: formData.offreId,
@@ -190,7 +191,7 @@ const MesCandidat = () => {
         return;
       }
 
-      const response = await axios.get(`http://localhost:5000/api/cv/download/${nomFichier}`, {
+      const response = await axios.get(`${baseURL}/cv/download/${nomFichier}`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: 'blob',
       });
@@ -227,7 +228,7 @@ const MesCandidat = () => {
       }
 
       const aiResponse = await axios.post(
-        'http://localhost:5000/api/cv/analyze',
+        `${baseURL}/cv/analyze`,
         { nomFichier },
         {
           headers: {

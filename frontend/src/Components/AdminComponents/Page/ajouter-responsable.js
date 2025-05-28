@@ -15,6 +15,7 @@ function AjouterResponsable() {
   });
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+const baseURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -40,7 +41,7 @@ function AjouterResponsable() {
         return;
       }
       await axios.post(
-        "http://localhost:5000/api/auth/new-responsable",
+        `${baseURL}/auth/new-responsable`,
         newResponsable,
         {
           headers: {

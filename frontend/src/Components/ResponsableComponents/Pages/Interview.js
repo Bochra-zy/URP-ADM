@@ -5,6 +5,7 @@ import { fr } from 'date-fns/locale';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+const baseURL = process.env.REACT_APP_API_URL;
 
 const localizer = dateFnsLocalizer({
   format,
@@ -49,9 +50,9 @@ function Interview() {
 
     try {
       const [interviewsResponse, candidatesResponse, offresResponse] = await Promise.all([
-        axios.get('http://localhost:5000/api/interview', { headers: { Authorization: `Bearer ${token}` } }),
-        axios.get('http://localhost:5000/api/auth/responsable/candidats', { headers: { Authorization: `Bearer ${token}` } }),
-        axios.get('http://localhost:5000/api/offres/offRes', { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get(`${baseURL}/interview`, { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get(`${baseURL}/auth/responsable/candidats`, { headers: { Authorization: `Bearer ${token}` } }),
+        axios.get(`${baseURL}/offres/offRes`, { headers: { Authorization: `Bearer ${token}` } }),
       ]);
 
       const formattedInterviews = interviewsResponse.data
@@ -122,7 +123,7 @@ function Interview() {
     setError(null);
 
     try {
-      await axios.post('http://localhost:5000/api/interview', formData, {
+      await axios.post(`${baseURL}/interview`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -148,7 +149,7 @@ function Interview() {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/interview/${selectedInterview.id}`,
+        `${baseURL}/interview/${selectedInterview.id}`,
         editFormData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -170,7 +171,7 @@ function Interview() {
     }
     try {
       await axios.put(
-        `http://localhost:5000/api/interview/${selectedInterview.id}/status`,
+        `${baseURL}/interview/${selectedInterview.id}/status`,
         { status: statut },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -190,7 +191,7 @@ function Interview() {
     }
     try {
       await axios.put(
-        `http://localhost:5000/api/interview/${selectedInterview.id}/accept`,
+        `${baseURL}/interview/${selectedInterview.id}/accept`,
         { decision: 'accepted' },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -210,7 +211,7 @@ function Interview() {
     }
     try {
       await axios.put(
-        `http://localhost:5000/api/interview/${selectedInterview.id}/reject`,
+        `${baseURL}/interview/${selectedInterview.id}/reject`,
         { decision: 'rejected' },
         { headers: { Authorization: `Bearer ${token}` } }
       );

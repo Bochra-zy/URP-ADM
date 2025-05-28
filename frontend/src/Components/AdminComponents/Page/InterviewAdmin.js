@@ -8,6 +8,7 @@ function InterviewsAdmin() {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedInterview, setSelectedInterview] = useState(null);
+const baseURL = process.env.REACT_APP_API_URL;
 
   // Fetch all interviews
   useEffect(() => {
@@ -20,7 +21,7 @@ function InterviewsAdmin() {
       }
 
       try {
-        const response = await fetch("http://localhost:5000/api/interview/interviewsADM", {
+        const response = await fetch(`${baseURL}/interview/interviewsADM`, {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

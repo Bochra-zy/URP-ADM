@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+const baseURL = process.env.REACT_APP_API_URL;
 
 function ProfilResponsable() {
   const [responsable, setResponsable] = useState(null);
@@ -24,7 +25,7 @@ function ProfilResponsable() {
 
     const fetchResponsableProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/responsable/profil", {
+        const res = await axios.get(`${baseURL}/auth/responsable/profil`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setResponsable(res.data);
@@ -68,7 +69,7 @@ function ProfilResponsable() {
 
     try {
       const res = await axios.put(
-        "http://localhost:5000/api/auth/responsable/profil",
+        "/api/auth/responsable/profil",
         updatedData,
         {
           headers: { Authorization: `Bearer ${token}` },

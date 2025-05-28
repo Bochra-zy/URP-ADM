@@ -10,6 +10,7 @@ function Candidats() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+const baseURL = process.env.REACT_APP_API_URL;
 
   const fetchCandidates = async () => {
     try {
@@ -19,7 +20,7 @@ function Candidats() {
         navigate("/signin");
         return;
       }
-      const response = await axios.get("http://localhost:5000/api/auth/candidats", {
+      const response = await axios.get(`${baseURL}/auth/candidats`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log("Candidats récupérés:", response.data);
@@ -45,7 +46,7 @@ function Candidats() {
           navigate("/signin");
           return;
         }
-        await axios.delete(`http://localhost:5000/api/auth/candidats/${id}`, {
+        await axios.delete(`${baseURL}/auth/candidats/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         await fetchCandidates();
@@ -66,7 +67,7 @@ function Candidats() {
         navigate("/signin");
         return;
       }
-      const response = await axios.get(`http://localhost:5000/api/cv/download/${nomFichier}`, {
+      const response = await axios.get(`${baseURL}/cv/download/${nomFichier}`, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: 'blob',
       });
@@ -91,7 +92,7 @@ function Candidats() {
         navigate("/signin");
         return;
       }
-      const response = await axios.get(`http://localhost:5000/api/auth/candidats/${id}`, {
+      const response = await axios.get(`${baseURL}/auth/candidats/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log("Détails du candidat:", response.data);

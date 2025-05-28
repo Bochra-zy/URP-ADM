@@ -12,6 +12,7 @@ function ProfilAdmin() {
   });
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+const baseURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     if (!token) {
@@ -21,7 +22,7 @@ function ProfilAdmin() {
 
     const fetchAdminProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/profile", {
+        const res = await axios.get(`${baseURL}/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setAdmin(res.data);
@@ -58,7 +59,7 @@ function ProfilAdmin() {
 
     try {
       const res = await axios.put(
-        "http://localhost:5000/api/auth/profile",
+        `${baseURL}/auth/profile`,
         updatedData,
         {
           headers: { Authorization: `Bearer ${token}` },
